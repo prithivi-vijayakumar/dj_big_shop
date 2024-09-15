@@ -50,4 +50,23 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return self.email
 
+class NewsLetterStatus(models.TextChoices):
+    SUBSCRIBE = 'SUBSCRIBE', _('SUBSCRIBE')
+    UNSUBSCRIBE = 'UNSUBSCRIBE', _('UNSUBSCRIBE')
+
+class NewsLetter(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    name = models.CharField(max_length=255, null=True, blank=True)
+    email =models.EmailField(_('email address'), unique=True)
+    status= models.CharField(
+        max_length=255,
+        choices=NewsLetterStatus.choices,
+        default=NewsLetterStatus.SUBSCRIBE
+    )
+    def __str__(self):
+        return self.email
+
+    class Meta:
+        db_table = 'news_letter'
+
 
