@@ -221,3 +221,39 @@ class Collection(models.Model):
 
     class Meta:
         db_table = 'collection'
+
+        class SubCategoryStatus(models.TextChoices):
+            PUBLISHED = 'PUBLISHED', _('PUBLISHED')
+            DRAFT = 'DRAFT', _('DRAFT')
+            PENDING = 'PENDING', _('PENDING')
+
+class SubCategoryStatus(models.TextChoices):
+    PUBLISHED = 'PUBLISHED', _('PUBLISHED')
+    DRAFT = 'DRAFT', _('DRAFT')
+    PENDING = 'PENDING', _('PENDING')
+
+class SubCategory(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    name= models.CharField(max_length=255)
+    description = models.TextField(null=True,blank=True)
+    selling_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    buying_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    expected_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    earned_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    image_path= models.ImageField(upload_to='brands', null=True, blank=True, default='No_image_available.jpg')
+    measurement_unit= models.CharField(max_length=255, null=True, blank=True)
+    current_qty= models.IntegerField(null=True, blank=True)
+    reorder_level= models.IntegerField(null=True, blank=True)
+    company = models.ForeignKey(Company, on_delete=models.SET_NULL, null=True, blank=True)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True ,blank=True)
+    status= models.CharField(
+        max_length=255,
+        choices=SubCategoryStatus.choices,
+        default=SubCategoryStatus.PUBLISHED
+    )
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = 'sub_category'
