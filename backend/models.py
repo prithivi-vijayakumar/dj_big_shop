@@ -70,3 +70,25 @@ class NewsLetter(models.Model):
         db_table = 'news_letter'
 
 
+class LabelStatus(models.TextChoices):
+    PROCESSING = 'PROCESSING', _('PROCESSING')
+    ACTIVE = 'ACTIVE', _('ACTIVE')
+    HIDE = 'HIDE', _('HIDE')
+
+class Label(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    name = models.CharField(max_length=255, null=True, blank=True)
+    color = models.CharField(max_length=255,null=True, blank=True)
+    status= models.CharField(
+        max_length=255,
+        choices=LabelStatus.choices,
+        default=LabelStatus.PROCESSING
+    )
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = 'label'
+
+

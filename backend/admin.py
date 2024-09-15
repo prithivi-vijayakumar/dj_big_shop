@@ -3,7 +3,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.utils.html import format_html
 
 from backend.forms import CustomerUserCreationForm, CustomerUserChangeForm
-from backend.models import CustomUser, NewsLetter
+from backend.models import CustomUser, NewsLetter, Label
 
 
 # Register your models here.
@@ -44,3 +44,8 @@ class NewsLetterAdmin(admin.ModelAdmin):
     list_display = ('name', 'email', 'status')
 
 admin.site.register(NewsLetter, NewsLetterAdmin)
+class LabelAdmin(admin.ModelAdmin):
+
+    list_display = ('name', 'color', 'status')
+
+admin.site.register(Label, LabelAdmin)
