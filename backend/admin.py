@@ -61,3 +61,14 @@ class DiscountAdmin(admin.ModelAdmin):
     list_display = ('type', 'start_date', 'end_date', 'never_expired')
 
 admin.site.register(Discount, DiscountAdmin)
+
+class BrandAdmin(admin.ModelAdmin):
+
+    list_display = ('name', 'image_path','image_tag')
+
+    def image_tag(self, obj):
+        return  format_html('<img src="{}" width="150" height="150" />'.format(obj.image_path.url))
+
+    image_tag.short_description = 'Image'
+
+admin.site.register(Brand, BrandAdmin)
