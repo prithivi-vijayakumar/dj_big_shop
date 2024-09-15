@@ -1,5 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
@@ -300,3 +302,22 @@ class Product(models.Model):
 
     class Meta:
         db_table = 'product'
+
+class ProductImage(models.Model):
+    product = models.ForeignKey(Product, related_name='images', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='product_images/', default='No_image_available.jpg')
+
+    def __str__(self):
+        return f"Image for {self.product.name}"
+
+
+@receiver(post_save, sender=Product)
+def create_default_product_image(sender, instance, created, **kwargs):
+    if created:
+        # Check if the product already has images
+        if not instance.images.exists():
+            # Create a default image
+            ProductImage.objects.create(
+                product=instance
+                # image='product_images/No_image_available.jpg'
+            )

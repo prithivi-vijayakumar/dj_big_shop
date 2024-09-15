@@ -3,7 +3,8 @@ from django.contrib.auth.admin import UserAdmin
 from django.utils.html import format_html
 
 from backend.forms import CustomerUserCreationForm, CustomerUserChangeForm
-from backend.models import CustomUser, NewsLetter, Label, Tag, Discount, Brand, Company, Collection, SubCategory
+from backend.models import CustomUser, NewsLetter, Label, Tag, Discount, Brand, Company, Collection, SubCategory, \
+    ProductImage
 
 
 # Register your models here.
@@ -113,3 +114,9 @@ class SubCategroyAdmin(admin.ModelAdmin):
     image_tag.short_description = 'Image'
 
 admin.site.register(SubCategory, SubCategroyAdmin)
+
+admin.site.register(SubCategory, SubCategroyAdmin)
+
+class ProductImageInline(admin.TabularInline):
+    model = ProductImage
+    extra = 1  # Number of empty forms to display
