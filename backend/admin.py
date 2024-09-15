@@ -3,7 +3,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.utils.html import format_html
 
 from backend.forms import CustomerUserCreationForm, CustomerUserChangeForm
-from backend.models import CustomUser, NewsLetter, Label, Tag, Discount, Brand
+from backend.models import CustomUser, NewsLetter, Label, Tag, Discount, Brand, Company
 
 
 # Register your models here.

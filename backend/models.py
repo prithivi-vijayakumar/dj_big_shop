@@ -174,4 +174,4 @@ class Company(models.Model):
         return self.name
 
     class Meta:
-        db_table = 'company' 
+        db_table = 'company'
