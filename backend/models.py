@@ -201,3 +201,23 @@ class Category(models.Model):
         return self.name
     class Meta:
         db_table = 'category'
+
+class CollectionStatus(models.TextChoices):
+    PUBLISHED = 'PUBLISHED', _('PUBLISHED')
+    DRAFT = 'DRAFT', _('DRAFT')
+    PENDING = 'PENDING', _('PENDING')
+
+class Collection(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    name = models.CharField(max_length=255)
+    status = models.CharField(
+        max_length=255,
+        choices=CollectionStatus.choices,
+        default=CollectionStatus.PUBLISHED
+    )
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = 'collection'
