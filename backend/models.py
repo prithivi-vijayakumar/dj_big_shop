@@ -153,3 +153,25 @@ class Brand(models.Model):
         return self.name
     class Meta:
         db_table = 'brand'
+
+class CompanyStatus(models.TextChoices):
+    PUBLISHED = 'PUBLISHED', _('PUBLISHED')
+    DRAFT = 'DRAFT', _('DRAFT')
+    PENDING = 'PENDING', _('PENDING')
+
+class Company(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    name= models.CharField(max_length=255)
+    image_path = models.ImageField(upload_to='company', null=True, blank=True,default='No_image_available.jpg')
+    user = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, blank=True)
+    status = models.CharField(
+        max_length=255,
+        choices=CompanyStatus.choices,
+        default=CompanyStatus.PUBLISHED
+    )
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = 'company' 
