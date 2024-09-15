@@ -91,4 +91,22 @@ class Label(models.Model):
     class Meta:
         db_table = 'label'
 
+class TagStatus(models.TextChoices):
+    PUBLISHED = 'PUBLISHED', _('PUBLISHED')
+    DRAFT = 'DRAFT', _('DRAFT')
+    PENDING = 'PENDING', _('PENDING')
 
+class Tag(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    name = models.CharField(max_length=255, null=True, blank=True)
+    status=models.CharField(
+        max_length=255,
+        choices=TagStatus.choices,
+        default=TagStatus.PUBLISHED
+    )
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = 'tag'
