@@ -83,3 +83,16 @@ class CompanyAdmin(admin.ModelAdmin):
     image_tag.short_description = 'Image'
 
 admin.site.register(Company, CompanyAdmin)
+
+
+
+# class CategroyAdmin(admin.ModelAdmin):
+#
+#     list_display = ('name','description', 'selling_price', 'buying_price', 'expected_price', 'earned_price', 'image_tag')
+#
+#     def image_tag(self, obj):
+#         return  format_html('<img src="{}" width="150" height="150" />'.format(obj.image_path.url))
+#
+#     image_tag.short_description = 'Image'
+#
+# admin.site.register(Category, CategroyAdmin)

@@ -175,3 +175,29 @@ class Company(models.Model):
 
     class Meta:
         db_table = 'company'
+
+
+class CategoryStatus(models.TextChoices):
+    PUBLISHED = 'PUBLISHED', _('PUBLISHED')
+    DRAFT = 'DRAFT', _('DRAFT')
+    PENDING = 'PENDING', _('PENDING')
+
+class Category(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    name= models.CharField(max_length=255)
+    description = models.TextField(null=True,blank=True)
+    selling_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    buying_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    expected_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    earned_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    image_path= models.ImageField(upload_to='brands', null=True, blank=True, default='No_image_available.jpg')
+    status= models.CharField(
+        max_length=255,
+        choices=CategoryStatus.choices,
+        default=CategoryStatus.PUBLISHED
+    )
+
+    def __str__(self):
+        return self.name
+    class Meta:
+        db_table = 'category'
