@@ -257,3 +257,46 @@ class SubCategory(models.Model):
 
     class Meta:
         db_table = 'sub_category'
+
+
+class StockStatus(models.TextChoices):
+    IN_STOCK = 'IN_STOCK', _('IN_STOCK')
+    OUT_OF_STOCK = 'OUT_OF_STOCK', _('OUT_OF_STOCK')
+    ON_BACK_ORDER = 'ON_BACK_ORDER', _('ON_BACK_ORDER')
+
+class ProductStatus(models.TextChoices):
+    PUBLISHED = 'PUBLISHED', _('PUBLISHED')
+    DRAFT = 'DRAFT', _('DRAFT')
+    PENDING = 'PENDING', _('PENDING')
+
+class Product(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    name = models.CharField(max_length=255)
+    description = models.TextField(null=True, blank=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    qty= models.IntegerField(null=True, blank=True)
+    alert_stock =  models.IntegerField(null=True,blank=True)
+    is_featured = models.BooleanField(default=False)
+    min_order_qty = models.IntegerField(null=True, blank=True)
+    max_order_qty = models.IntegerField(null=True, blank=True)
+    categories = models.ManyToManyField('Category', related_name='products', through='ProductCategory')
+    brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True, blank=True)
+    productTag = models.ManyToManyField('Tag', related_name='tags', through='ProductTag')
+    productLabel = models.ManyToManyField('Label', related_name='labels', through='ProductLabel')
+    productCollection = models.ManyToManyField('Collection', related_name='collections', through='ProductCollection')
+    stock_status = models.CharField(
+        max_length=255,
+        choices=StockStatus.choices,
+        default=StockStatus.IN_STOCK
+    )
+    status = models.CharField(
+        max_length=255,
+        choices=ProductStatus.choices,
+        default=ProductStatus.PUBLISHED
+    )
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = 'product'
