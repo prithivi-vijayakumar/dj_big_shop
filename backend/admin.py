@@ -3,7 +3,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.utils.html import format_html
 
 from backend.forms import CustomerUserCreationForm, CustomerUserChangeForm
-from backend.models import CustomUser, NewsLetter, Label, Tag
+from backend.models import CustomUser, NewsLetter, Label, Tag, Discount
 
 
 # Register your models here.
@@ -55,3 +55,9 @@ class TagAdmin(admin.ModelAdmin):
     list_display = ('name', 'status')
 
 admin.site.register(Tag, TagAdmin)
+
+class DiscountAdmin(admin.ModelAdmin):
+
+    list_display = ('type', 'start_date', 'end_date', 'never_expired')
+
+admin.site.register(Discount, DiscountAdmin)

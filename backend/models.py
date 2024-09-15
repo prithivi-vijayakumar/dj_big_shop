@@ -110,3 +110,25 @@ class Tag(models.Model):
 
     class Meta:
         db_table = 'tag'
+
+class DiscountStatus(models.TextChoices):
+    COUPON_CODE = 'COUPON_CODE', _('COUPON_CODE')
+    PROMOTION = 'PROMOTION', _('PROMOTION')
+
+class Discount(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    type = models.CharField(max_length=255, null=True, blank=True)
+    start_date= models.DateField(null=True, blank=True)
+    end_date = models.DateField(null=True, blank=True)
+    never_expired= models.BooleanField(default=False)
+    status = models.CharField(
+        max_length=255,
+        choices=DiscountStatus.choices,
+        default=DiscountStatus.COUPON_CODE
+    )
+
+    def __str__(self):
+        return str(self.type)
+
+    class Meta:
+        db_table = 'discount'
