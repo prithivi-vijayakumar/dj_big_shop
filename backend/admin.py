@@ -4,7 +4,7 @@ from django.utils.html import format_html
 
 from backend.forms import CustomerUserCreationForm, CustomerUserChangeForm
 from backend.models import CustomUser, NewsLetter, Label, Tag, Discount, Brand, Company, Collection, SubCategory, \
-    ProductImage, ProductCategory, ProductLabel, ProductTag, ProductCollection
+    ProductImage, ProductCategory, ProductLabel, ProductTag, ProductCollection, Cart
 
 
 # Register your models here.
@@ -136,3 +136,9 @@ class ProductTagInline(admin.TabularInline):
 class ProductCollectionInline(admin.TabularInline):
     model = ProductCollection
     extra = 1
+
+class CartAdmin(admin.ModelAdmin):
+    list_display = ('id', 'custom_user', 'product', 'qty', )
+    def image_tag(self, obj):
+        return format_html('<img src = "{}" width="150" height="150" />'.format(obj.product.image.url))
+admin.site.register(Cart, CartAdmin)

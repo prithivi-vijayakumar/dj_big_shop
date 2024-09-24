@@ -353,3 +353,25 @@ class ProductCollection(models.Model):
     class Meta:
         db_table = 'product_collection'
         unique_together = (('product', 'collection'),)
+
+class Cart(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    custom_user = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, blank=True, null=True)
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, blank=True, null=True)
+    qty = models.IntegerField()
+    product_image = models.ImageField(upload_to='carts', null=True, blank=True, default='No_image_available.jpg')
+    def __str__(self):
+        return str(self.qty)
+    def total_price(self):
+        return self.qty * self.product.price if self.product else 0
+    # def grand_total(self):
+    #     cart_items = Cart.objects.filter(custom_user=self.custom_user)
+    #     total = sum(element.total_price() for element in cart_items)
+    #     return total
+    @classmethod
+    def grand_total(cls, customer_id):
+        cart_items = cls.objects.filter(custom_user_id=customer_id)
+        total = sum(item.total_price() for item in cart_items)
+        return total
+    class Meta:
+        db_table = 'cart'
