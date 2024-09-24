@@ -345,3 +345,11 @@ class ProductTag(models.Model):
     class Meta:
         db_table = 'product_tag'
         unique_together = (('product', 'tag'),)
+
+class ProductCollection(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    collection = models.ForeignKey(Collection, on_delete=models.CASCADE)
+    added_on = models.DateTimeField(auto_now_add=True)
+    class Meta:
+        db_table = 'product_collection'
+        unique_together = (('product', 'collection'),)

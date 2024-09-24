@@ -4,7 +4,7 @@ from django.utils.html import format_html
 
 from backend.forms import CustomerUserCreationForm, CustomerUserChangeForm
 from backend.models import CustomUser, NewsLetter, Label, Tag, Discount, Brand, Company, Collection, SubCategory, \
-    ProductImage, ProductCategory, ProductLabel, ProductTag
+    ProductImage, ProductCategory, ProductLabel, ProductTag, ProductCollection
 
 
 # Register your models here.
@@ -131,4 +131,8 @@ class ProductLabelInline(admin.TabularInline):
 
 class ProductTagInline(admin.TabularInline):
     model = ProductTag
+    extra = 1
+
+class ProductCollectionInline(admin.TabularInline):
+    model = ProductCollection
     extra = 1
