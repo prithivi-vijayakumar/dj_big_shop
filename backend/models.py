@@ -329,3 +329,11 @@ class ProductCategory(models.Model):
     class Meta:
         db_table = 'product_category'
         unique_together = (('product', 'category'),)
+
+class ProductLabel(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    label = models.ForeignKey(Label, on_delete=models.CASCADE)
+    added_on = models.DateTimeField(auto_now_add=True)
+    class Meta:
+        db_table = 'product_label'
+        unique_together = (('product', 'label'),)
