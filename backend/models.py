@@ -337,3 +337,11 @@ class ProductLabel(models.Model):
     class Meta:
         db_table = 'product_label'
         unique_together = (('product', 'label'),)
+
+class ProductTag(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    tag = models.ForeignKey(Tag, on_delete=models.CASCADE)
+    added_on = models.DateTimeField(auto_now_add=True)
+    class Meta:
+        db_table = 'product_tag'
+        unique_together = (('product', 'tag'),)
