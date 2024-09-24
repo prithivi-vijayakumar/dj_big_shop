@@ -4,7 +4,7 @@ from django.utils.html import format_html
 
 from backend.forms import CustomerUserCreationForm, CustomerUserChangeForm
 from backend.models import CustomUser, NewsLetter, Label, Tag, Discount, Brand, Company, Collection, SubCategory, \
-    ProductImage
+    ProductImage, ProductCategory
 
 
 # Register your models here.
@@ -120,3 +120,7 @@ admin.site.register(SubCategory, SubCategroyAdmin)
 class ProductImageInline(admin.TabularInline):
     model = ProductImage
     extra = 1  # Number of empty forms to display
+
+    class ProductCategoryInline(admin.TabularInline):
+        model = ProductCategory
+        extra = 1

@@ -321,3 +321,11 @@ def create_default_product_image(sender, instance, created, **kwargs):
                 product=instance
                 # image='product_images/No_image_available.jpg'
             )
+
+class ProductCategory(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    added_on = models.DateTimeField(auto_now_add=True)
+    class Meta:
+        db_table = 'product_category'
+        unique_together = (('product', 'category'),)
