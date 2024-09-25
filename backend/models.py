@@ -225,10 +225,6 @@ class Collection(models.Model):
     class Meta:
         db_table = 'collection'
 
-        class SubCategoryStatus(models.TextChoices):
-            PUBLISHED = 'PUBLISHED', _('PUBLISHED')
-            DRAFT = 'DRAFT', _('DRAFT')
-            PENDING = 'PENDING', _('PENDING')
 
 class SubCategoryStatus(models.TextChoices):
     PUBLISHED = 'PUBLISHED', _('PUBLISHED')

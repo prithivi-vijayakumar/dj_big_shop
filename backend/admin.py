@@ -116,7 +116,6 @@ class SubCategroyAdmin(admin.ModelAdmin):
 
 admin.site.register(SubCategory, SubCategroyAdmin)
 
-admin.site.register(SubCategory, SubCategroyAdmin)
 
 class ProductImageInline(admin.TabularInline):
     model = ProductImage
