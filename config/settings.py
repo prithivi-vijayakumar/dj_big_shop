@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-+v6m-&gvc!8^#vnr(i7ag$mp7!c#mff@0_w1gub3st4p-^*ygo
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '192.168.1.111'
+    '192.168.0.104'
 ]
 
 
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'backend',
     'rest_framework',
+    'rest_framework.authtoken',
     'api_v2'
 ]
 
@@ -133,3 +134,14 @@ MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 AUTH_USER_MODEL = 'backend.CustomUser'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    )
+}
