@@ -40,7 +40,7 @@ class CustomAuthToken(ObtainAuthToken):
         # })
         return Response(token.key)
 
-    class CurrentUserView(APIView):
+class CurrentUserView(APIView):
         permission_classes = [IsAuthenticated]
 
         def get(self, request):
@@ -99,6 +99,4 @@ class ProductListView(generics.ListAPIView):
     permission_classes = [AllowAny]
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-
-
 
