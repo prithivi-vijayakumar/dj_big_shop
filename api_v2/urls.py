@@ -1,5 +1,5 @@
 from django.urls import path
-from api_v2.views import UserCreateAPIView, LogoutAPIView, CategoryListView,CurrentUserView,BrandListView,ProductListView
+from api_v2.views import UserCreateAPIView, LogoutAPIView, CategoryListView,CurrentUserView,BrandListView,ProductListView,SubCategoryListView
 from rest_framework.authtoken.views import obtain_auth_token
 from api_v2.views import UserCreateAPIView, CustomAuthToken
 
@@ -18,4 +18,5 @@ path('token', obtain_auth_token, name='api_token_auth'),
     path('categories', CategoryListView(), name = 'category_list'),
     path('brands', BrandListView.as_view(), name = 'brand_list'),
     path('products', ProductListView.as_view(), name='product_list'),
+    path('subcategories', SubCategoryListView.as_view(), name='subcategory_list'),
 ]
