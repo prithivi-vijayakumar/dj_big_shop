@@ -16,6 +16,10 @@ class BrandListView:
     pass
 
 
+class ProductListView:
+    pass
+
+
 urlpatterns = [
     path('register', UserCreateAPIView.as_view(), name='create'),
 
@@ -27,4 +31,5 @@ path('token', obtain_auth_token, name='api_token_auth'),
     path('logout', LogoutAPIView.as_view(), name='logout'),
     path('categories', CategoryListView.as_view(), name = 'category_list'),
     path('brands', BrandListView.as_view(), name = 'brand_list'),
+    path('products', ProductListView.as_view(), name='product_list'),
 ]

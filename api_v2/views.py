@@ -5,8 +5,8 @@ from rest_framework import status, generics
 from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
-from api_v2.serializers import CustomUserSerializer, CategorySerializer, BrandSerializer
-from backend.models import CustomUser, Category, Brand
+from api_v2.serializers import CustomUserSerializer, CategorySerializer, BrandSerializer, ProductSerializer
+from backend.models import CustomUser, Category, Brand, Product
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.views import APIView
 
@@ -87,5 +87,18 @@ class BrandListView(generics.ListAPIView):
             "data": serializer.data
         }
         return Response(data)
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
+        data = {
+            "data": serializer.data
+        }
+        return Response(data)
+class ProductListView(generics.ListAPIView):
+    permission_classes = [AllowAny]
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
 
 
