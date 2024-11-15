@@ -1,3 +1,4 @@
+import hashlib
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.models.signals import post_save
@@ -41,6 +42,11 @@ class GenderedImageField(models.ImageField):
 
 
 class CustomUser(AbstractUser):
+    def get_avatar_url(self):
+        email_hash = hashlib.md5(self.email.lower().encode('utf-8')).hexdigest()
+        return f"https://gravatar.com/avatar/{email_hash}"
+
+
     username = None
     email = models.EmailField(_('email address'), unique=True)
     gender = models.CharField(max_length=1, choices=Gender.choices, default=Gender.MALE)
