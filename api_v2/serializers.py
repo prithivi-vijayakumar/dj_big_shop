@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from backend.models import CustomUser, Category, Brand, Label, ProductLabel, ProductCategory, Tag, ProductTag, \
-    Collection, ProductCollection, ProductImage, Product, SubCategory, Cart
+    Collection, ProductCollection, ProductImage, Product, SubCategory, Cart, Order, OrderItem
 from django.contrib.auth import authenticate
 from django.utils.translation import gettext_lazy as _
 class CustomUserSerializer(serializers.ModelSerializer):
@@ -145,3 +145,37 @@ class CartSerializer(serializers.ModelSerializer):
     #     return obj.product.image.url
     def get_price(self, obj):
         return obj.product.price if obj.product else None
+
+class OrderItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OrderItem
+        fields = ['product', 'qty', 'unit_price', 'amount', 'discount']
+class OrderSerializer(serializers.ModelSerializer):
+    order_items = OrderItemSerializer(many=True)
+    class Meta:
+        model = Order
+        fields = ['id', 'customer', 'total_amount', 'order_status', 'payment_method', 'order_items']
+        read_only_fields = ['customer']  # Ensure customer is not required in the request
+    def create(self, validated_data):
+        order_items_data = validated_data.pop('order_items')
+        # order = Order.objects.create(**validated_data)
+        user = self.context['request'].user
+        order = Order.objects.create(customer=user, **validated_data)
+        total_amount = 0
+        for item_data in order_items_data:
+            # Calculate the amount here
+            amount = item_data['qty'] * item_data['unit_price']
+            total_amount += amount
+            # Create OrderItem without passing amount directly
+            OrderItem.objects.create(
+                order=order,
+                product=item_data['product'],
+                qty=item_data['qty'],
+                unit_price=item_data['unit_price'],
+                amount=item_data['amount'],
+                discount=item_data['discount']
+            )
+        # Update total_amount for the order
+        order.total_amount = total_amount
+        order.save()
+        return order

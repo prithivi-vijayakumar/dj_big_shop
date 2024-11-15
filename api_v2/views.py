@@ -6,8 +6,8 @@ from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from api_v2.serializers import CustomUserSerializer, CategorySerializer, BrandSerializer, ProductSerializer, \
-    SubCategorySerializer, CartSerializer
-from backend.models import CustomUser, Category, Brand, Product, SubCategory, Cart
+    SubCategorySerializer, CartSerializer, OrderSerializer
+from backend.models import CustomUser, Category, Brand, Product, SubCategory, Cart, Order
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.views import APIView
 
@@ -177,4 +177,45 @@ class ClearCartView(APIView):
         Cart.objects.filter(custom_user_id=customer_id).delete()
         return Response({"message": "Cart cleared successfully."}, status=status.HTTP_200_OK)
 
+class OrderListView(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request):
+        customer_id = request.user.id
+        # carts = Cart.objects.filter(custom_user_id=customer_id)
+        orders = Order.objects.filter(custom_user_id=customer_id).order_by('id')
+        serializer = OrderSerializer(orders, many=True)
+        return Response({'data': serializer.data}, status=status.HTTP_200_OK)
+    def post(self, request):
+        # serializer = OrderSerializer(data=request.data)
+        serializer = OrderSerializer(data=request.data, context={'request': request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"message": "Order placed successfully."}, status=status.HTTP_201_CREATED)
+        return Response({'error': 'Order creation failed', 'message': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+class OrderDetailView(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request, pk):
+        try:
+            order = Order.objects.get(pk=pk)
+        except Order.DoesNotExist:
+            return Response({'error': 'Order not found'}, status=status.HTTP_404_NOT_FOUND)
+        serializer = OrderSerializer(order)
+        return Response({'data': serializer.data}, status=status.HTTP_200_OK)
+    def put(self, request, pk):
+        try:
+            order = Order.objects.get(pk=pk)
+        except Order.DoesNotExist:
+            return Response({'error': 'Order not found'}, status=status.HTTP_404_NOT_FOUND)
+        serializer = OrderSerializer(order, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'data': serializer.data}, status=status.HTTP_200_OK)
+        return Response({'error': 'Order update failed', 'message': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+    def delete(self, request, pk):
+        try:
+            order = Order.objects.get(pk=pk)
+        except Order.DoesNotExist:
+            return Response({'error': 'Order not found'}, status=status.HTTP_404_NOT_FOUND)
+        order.delete()
+        return Response({'message': 'Order deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
 
