@@ -51,3 +51,12 @@ class CustomAuthToken(ObtainAuthToken):
                 'email': user.email,
                 'avatar': user.get_avatar_url(),
             })
+
+class LogoutAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self,request,format=None):
+        request.user.auth_token.delete()
+        data = {
+            'message':'logout was successfully'
+        }
+        return Response(data=data,status=status.HTTP_200_OK)
