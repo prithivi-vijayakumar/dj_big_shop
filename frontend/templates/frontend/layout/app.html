@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,14 +6,47 @@
     <title>
         {% block title %}
         {% endblock %}
+        {{ request.path }}
     </title>
+     <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta property="og:title" content="" />
+    <meta property="og:type" content="" />
+    <meta property="og:url" content="" />
+    <meta property="og:image" content="" />
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'frontend/imgs/theme/favicon.svg' %}" />
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="{% static 'frontend/css/plugins/animate.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'frontend/css/main.css' %}" />
 </head>
 <body>
-    <!--Header Partial-->
-    {% include 'frontend/layout/header.html' %}
-    {% block content %}
-    {% endblock %}
-    <!--Footer Partial-->
-    {% include 'frontend/layout/footer.html' %}
+
+    <!--Preloader-->
+    {% include 'frontend/preloader/type_1.html' %}
+    <!-- Vendor JS-->
+    <script src="{% static 'frontend/js/vendor/modernizr-3.6.0.min.js' %}"></script>
+    <script src="{% static 'frontend/js/vendor/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'frontend/js/vendor/jquery-migrate-3.3.0.min.js' %}"></script>
+    <script src="{% static 'frontend/js/vendor/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'frontend/js/plugins/slick.js' %}"></script>
+    <script src="{% static 'frontend/js/plugins/jquery.syotimer.min.js' %}"></script>
+    <script src="{% static 'frontend/js/plugins/waypoints.js' %}"></script>
+    <script src="{% static 'frontend/js/plugins/wow.js' %}"></script>
+    <script src="{% static 'frontend/js/plugins/perfect-scrollbar.js' %}"></script>
+    <script src="{% static 'frontend/js/plugins/magnific-popup.js' %}"></script>
+    <script src="{% static 'frontend/js/plugins/select2.min.js' %}"></script>
+    <script src="{% static 'frontend/js/plugins/counterup.js' %}"></script>
+    <script src="{% static 'frontend/js/plugins/jquery.countdown.min.js' %}"></script>
+    <script src="{% static 'frontend/js/plugins/images-loaded.js' %}"></script>
+    <script src="{% static 'frontend/js/plugins/isotope.js' %}"></script>
+    <script src="{% static 'frontend/js/plugins/scrollup.js' %}"></script>
+    <script src="{% static 'frontend/js/plugins/jquery.vticker-min.js' %}"></script>
+    <script src="{% static 'frontend/js/plugins/jquery.theia.sticky.js' %}"></script>
+    <script src="{% static 'frontend/js/plugins/jquery.elevatezoom.js' %}"></script>
+    <!-- Template  JS -->
+    <script src="{% static 'frontend/js/main.js' %}"></script>
+    <script src="{% static 'frontend/js/shop.js' %}"></script>
 </body>
 </html>
