@@ -23,6 +23,16 @@
 </head>
 <body>
 
+
+        {% block content %}
+        {% if request.path == '/login/' %}
+            {% include 'frontend/auth/login.html' %}
+        {% else %}
+            <!-- Default content or empty block -->
+            <p>Welcome to the site!</p>
+        {% endif %}
+    {% endblock %}
+
     <!--Footer Partial-->
     {% include 'frontend/layout/footer.html' %}
     {% if request.path == '/' %}
