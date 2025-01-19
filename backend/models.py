@@ -284,7 +284,7 @@ class Product(models.Model):
     is_featured = models.BooleanField(default=False)
     min_order_qty = models.IntegerField(null=True, blank=True)
     max_order_qty = models.IntegerField(null=True, blank=True)
-    categories = models.ManyToManyField('Category', related_name='products', through='ProductCategory')
+    category = models.ManyToManyField('Category', related_name='products', through='ProductCategory')
     brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True, blank=True)
     productTag = models.ManyToManyField('Tag', related_name='tags', through='ProductTag')
     productLabel = models.ManyToManyField('Label', related_name='labels', through='ProductLabel')
