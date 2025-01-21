@@ -5,9 +5,19 @@ def home(request):
     return render(request, 'frontend/home.html')
     # Retrieve all categories for use in the view
     categories = Category.objects.all()
+    category_present = 'category' in request.GET
     data = {
         'categories': categories,
+        'category_present': category_present,
     }
+    category_id = request.GET.get('category')
+    if category_id and category_id != 'All':
+        # Filter products based on the selected category
+        products = Product.objects.filter(category__id=category_id)
+        # Pass filtered products to the template
+        data['products'] = products
+        return render(request, 'frontend/product/list/type1.html', data)
+
     return render(request, 'frontend/home.html', data)
 def login_page(request):
     return render(request, 'frontend/auth/login.html')
