@@ -14,6 +14,12 @@ def home(request):
     if category_id and category_id != 'All':
         # Filter products based on the selected category
         products = Product.objects.filter(category__id=category_id)
+        
+        # Get the category object and set page title and product count
+        category = get_object_or_404(Category, pk=category_id)
+        data['page_title'] = category.name
+        data['product_count'] = category.products.count()
+
         # Pass filtered products to the template
         data['products'] = products
         return render(request, 'frontend/product/list/type1.html', data)
