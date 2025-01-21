@@ -73,19 +73,14 @@
                     </div>
                     <div class="header-right">
                         <div class="search-style-2">
-                            <form action="#">
-                                <select class="select-active">
-                                    <option>All Categories</option>
-                                    <option>Milks and Dairies</option>
-                                    <option>Wines & Alcohol</option>
-                                    <option>Clothing & Beauty</option>
-                                    <option>Pet Foods & Toy</option>
-                                    <option>Fast food</option>
-                                    <option>Baking material</option>
-                                    <option>Vegetables</option>
-                                    <option>Fresh Seafood</option>
-                                    <option>Noodles & Rice</option>
-                                    <option>Ice cream</option>
+                                                    <form method="GET" action="{% url 'home' %}">
+                                <select class="select-active" name="category">
+                                    <option value="All" {% if request.GET.category == 'All' %}selected{% endif %}>All Categories</option>
+                                    {% for row in categories %}
+                                        <option value="{{ row.id }}" {% if request.GET.category == row.name %}selected{% endif %}>
+                                            {{ row.name }}
+                                        </option>
+                                    {% endfor %}
                                 </select>
                                 <input type="text" placeholder="Search for items..." />
                             </form>

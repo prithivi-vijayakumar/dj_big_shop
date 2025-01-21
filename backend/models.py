@@ -192,6 +192,7 @@ class CategoryStatus(models.TextChoices):
     PENDING = 'PENDING', _('PENDING')
 
 class Category(models.Model):
+    objects = None
     id = models.BigAutoField(primary_key=True)
     name= models.CharField(max_length=255)
     description = models.TextField(null=True,blank=True)

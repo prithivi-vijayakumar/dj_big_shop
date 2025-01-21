@@ -3,7 +3,8 @@ from django.urls import path
 from frontend.views import forget_password, home, register, login_page, about, account
 
 urlpatterns = [
-    path('', home),
+    path('', home, name='home'),
+    path('', home, name='home'),
     path('/', home, name='home'),
     path('login', login_page, name='login'),
     path('register', register, name='register'),
