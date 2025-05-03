@@ -28,7 +28,8 @@ DEBUG = True
 ALLOWED_HOSTS = [
     '192.168.1.122',
     '192.168.1.211',
-    '127.0.0.1'
+    '127.0.0.1',
+    'dj-big-shop-1.onrender.com'
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
