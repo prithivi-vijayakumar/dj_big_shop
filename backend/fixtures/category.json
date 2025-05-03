@@ -1,0 +1,100 @@
+[
+    {
+        "model": "backend.Category",
+        "pk": 1,
+        "fields": {
+            "name": "Fresh Produce"
+        }
+    },
+    {
+        "model": "backend.Category",
+        "pk": 2,
+        "fields": {
+            "name": "Dairy and Eggs"
+        }
+    },
+    {
+        "model": "backend.Category",
+        "pk": 3,
+        "fields": {
+            "name": "Meat and Seafood"
+        }
+    },
+    {
+        "model": "backend.Category",
+        "pk": 4,
+        "fields": {
+            "name": "Bakery"
+        }
+    },
+    {
+        "model": "backend.Category",
+        "pk": 5,
+        "fields": {
+            "name": "Pantry Staples"
+        }
+    },
+    {
+        "model": "backend.Category",
+        "pk": 6,
+        "fields": {
+            "name": "Beverages"
+        }
+    },
+    {
+        "model": "backend.Category",
+        "pk": 7,
+        "fields": {
+            "name": "Frozen Foods"
+        }
+    },
+    {
+        "model": "backend.Category",
+        "pk": 8,
+        "fields": {
+            "name": "Snacks"
+        }
+    },
+    {
+        "model": "backend.Category",
+        "pk": 9,
+        "fields": {
+            "name": "Health and Wellness"
+        }
+    },
+    {
+        "model": "backend.Category",
+        "pk": 10,
+        "fields": {
+            "name": "Household Supplies"
+        }
+    },
+    {
+        "model": "backend.Category",
+        "pk": 11,
+        "fields": {
+            "name": "Personal Care"
+        }
+    },
+    {
+        "model": "backend.Category",
+        "pk": 12,
+        "fields": {
+            "name": "Baby Products"
+        }
+    },
+    {
+        "model": "backend.Category",
+        "pk": 13,
+        "fields": {
+            "name": "Pet Supplies"
+        }
+    },
+    {
+        "model": "backend.Category",
+        "pk": 14,
+        "fields": {
+            "name": "International Foods"
+        }
+    }
+]

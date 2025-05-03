@@ -1,0 +1,134 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
+     <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta property="og:title" content="" />
+    <meta property="og:type" content="" />
+    <meta property="og:url" content="" />
+    <meta property="og:image" content="" />
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'frontend/imgs/theme/favicon.svg' %}" />
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="{% static 'frontend/css/plugins/animate.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'frontend/css/main.css' %}" />
+</head>
+<body>
+
+     <!--Model Partial-->
+    {% include 'frontend/model/type1.html' %}
+
+    <!--Header Partial-->
+    {% include 'frontend/layout/header.html' %}
+
+
+
+    {% if request.path == '/' and not category_present %}
+
+
+    {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+            {{ message }}
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+
+        <main class="main">
+
+            <!--Slider Partial-->
+            {% include 'frontend/slider/type1.html' %}
+
+            <!--Banner Partial-->
+            {% include 'frontend/slider/banner/type1.html' %}
+
+            <!--Feature Categories Partial-->
+            {% include 'frontend/slider/feature_categories/type1.html' %}
+
+            <!--Popular Product Partial-->
+            {% include 'frontend/slider/popular_product/type1.html' %}
+
+            <!--Daily Best Sells Partial-->
+            {% include 'frontend/slider/daily_best_sells/type1.html' %}
+
+            <!--Deal of the Day Partial-->
+            {% include 'frontend/slider/deal_of_the_day/type1.html' %}
+
+            <section class="section-padding mb-30">
+                <div class="container">
+                    <div class="row">
+
+                        <!--Top_selling Partial-->
+                        {% include 'frontend/slider/top_selling/type1.html' %}
+
+                        <!--trending_products Partial-->
+                        {% include 'frontend/slider/trending_products/type1.html' %}
+
+                        <!--Recently_added Partial-->
+                        {% include 'frontend/slider/recently_added/type1.html' %}
+
+                        <!--Top_rated Partial-->
+                        {% include 'frontend/slider/top_rated/type1.html' %}
+
+                    </div>
+                </div>
+            </section>
+            <!--End 4 columns-->
+        </main>
+
+    {% endif %}
+
+
+    <!-- Conditional content based on the URL path -->
+    {% block content %}
+
+        {% if request.path == '/login/' %}
+            {% include 'frontend/auth/login.html' %}
+        {% else %}
+            <!-- Default content or empty block -->
+            <p>Welcome to the site!</p>
+        {% endif %}
+
+    {% endblock %}
+
+    <!--Footer Partial-->
+    {% include 'frontend/layout/footer.html' %}
+
+    <!--Preloader-->
+    {% include 'frontend/preloader/type1.html' %}
+
+    <!-- Vendor JS-->
+    <script src="{% static 'frontend/js/vendor/modernizr-3.6.0.min.js' %}"></script>
+    <script src="{% static 'frontend/js/vendor/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'frontend/js/vendor/jquery-migrate-3.3.0.min.js' %}"></script>
+    <script src="{% static 'frontend/js/vendor/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'frontend/js/plugins/slick.js' %}"></script>
+    <script src="{% static 'frontend/js/plugins/jquery.syotimer.min.js' %}"></script>
+    <script src="{% static 'frontend/js/plugins/waypoints.js' %}"></script>
+    <script src="{% static 'frontend/js/plugins/wow.js' %}"></script>
+    <script src="{% static 'frontend/js/plugins/perfect-scrollbar.js' %}"></script>
+    <script src="{% static 'frontend/js/plugins/magnific-popup.js' %}"></script>
+    <script src="{% static 'frontend/js/plugins/select2.min.js' %}"></script>
+    <script src="{% static 'frontend/js/plugins/counterup.js' %}"></script>
+    <script src="{% static 'frontend/js/plugins/jquery.countdown.min.js' %}"></script>
+    <script src="{% static 'frontend/js/plugins/images-loaded.js' %}"></script>
+    <script src="{% static 'frontend/js/plugins/isotope.js' %}"></script>
+    <script src="{% static 'frontend/js/plugins/scrollup.js' %}"></script>
+    <script src="{% static 'frontend/js/plugins/jquery.vticker-min.js' %}"></script>
+    <script src="{% static 'frontend/js/plugins/jquery.theia.sticky.js' %}"></script>
+    <script src="{% static 'frontend/js/plugins/jquery.elevatezoom.js' %}"></script>
+    <!-- Template  JS -->
+    <script src="{% static 'frontend/js/main.js' %}"></script>
+    <script src="{% static 'frontend/js/shop.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+[
+    {
+        "model": "backend.Brand",
+        "pk": 1,
+        "fields": {
+            "name": "layse"
+        }
+    },
+    {
+        "model": "backend.Brand",
+        "pk": 2,
+        "fields": {
+            "name": "apple"
+        }
+    },
+    {
+        "model": "backend.Brand",
+        "pk": 3,
+        "fields": {
+            "name": "masaa"
+        }
+    },
+    {
+        "model": "backend.Brand",
+        "pk": 4,
+        "fields": {
+            "name": "sprite"
+        }
+    },
+    {
+        "model": "backend.Brand",
+        "pk": 5,
+        "fields": {
+            "name": "msi"
+        }
+    },
+    {
+        "model": "backend.Brand",
+        "pk": 6,
+        "fields": {
+            "name": "hp"
+        }
+    }
+]

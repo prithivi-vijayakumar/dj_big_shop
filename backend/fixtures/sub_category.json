@@ -1,0 +1,466 @@
+[
+    {
+        "model": "backend.SubCategory",
+        "pk": 1,
+        "fields": {
+            "name": "Fruits",
+            "category": 1
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 2,
+        "fields": {
+            "name": "Vegetables",
+            "category": 1
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 3,
+        "fields": {
+            "name": "Fresh herbs",
+            "category": 1
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 4,
+        "fields": {
+            "name": "Milk",
+            "category": 2
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 5,
+        "fields": {
+            "name": "Cheese",
+            "category": 2
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 6,
+        "fields": {
+            "name": "Yogurt",
+            "category": 2
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 7,
+        "fields": {
+            "name": "Eggs",
+            "category": 2
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 8,
+        "fields": {
+            "name": "Butter and margarine",
+            "category": 2
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 9,
+        "fields": {
+            "name": "Fresh meat (beef, pork, chicken)",
+            "category": 3
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 10,
+        "fields": {
+            "name": "Seafood (fish, shrimp, shellfish)",
+            "category": 3
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 11,
+        "fields": {
+            "name": "Deli meats",
+            "category": 3
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 12,
+        "fields": {
+            "name": "Packaged meat",
+            "category": 3
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 13,
+        "fields": {
+            "name": "Bread",
+            "category": 4
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 14,
+        "fields": {
+            "name": "Pastries",
+            "category": 4
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 15,
+        "fields": {
+            "name": "Cakes and pies",
+            "category": 4
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 16,
+        "fields": {
+            "name": "Cookies and biscuits",
+            "category": 4
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 17,
+        "fields": {
+            "name": "Canned goods",
+            "category": 5
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 18,
+        "fields": {
+            "name": "Dry pasta and grains",
+            "category": 5
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 19,
+        "fields": {
+            "name": "Rice and beans",
+            "category": 5
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 20,
+        "fields": {
+            "name": "Sauces and condiments",
+            "category": 5
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 21,
+        "fields": {
+            "name": "Spices and seasonings",
+            "category": 5
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 22,
+        "fields": {
+            "name": "Baking supplies (flour, sugar, baking powder)",
+            "category": 5
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 23,
+        "fields": {
+            "name": "Water",
+            "category": 6
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 24,
+        "fields": {
+            "name": "Soft drinks",
+            "category": 6
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 25,
+        "fields": {
+            "name": "Juices",
+            "category": 6
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 26,
+        "fields": {
+            "name": "Coffee and tea",
+            "category": 6
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 27,
+        "fields": {
+            "name": "Alcoholic beverages (beer, wine, spirits)",
+            "category": 6
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 28,
+        "fields": {
+            "name": "Frozen vegetables and fruits",
+            "category": 7
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 29,
+        "fields": {
+            "name": "Ice cream and desserts",
+            "category": 7
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 30,
+        "fields": {
+            "name": "Frozen meals",
+            "category": 7
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 31,
+        "fields": {
+            "name": "Frozen meat and seafood",
+            "category": 7
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 32,
+        "fields": {
+            "name": "Chips and crisps",
+            "category": 8
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 33,
+        "fields": {
+            "name": "Nuts and seeds",
+            "category": 8
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 34,
+        "fields": {
+            "name": "Popcorn",
+            "category": 8
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 35,
+        "fields": {
+            "name": "Snack bars",
+            "category": 8
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 36,
+        "fields": {
+            "name": "Candy and chocolate",
+            "category": 8
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 37,
+        "fields": {
+            "name": "Vitamins and supplements",
+            "category": 9
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 38,
+        "fields": {
+            "name": "Organic and natural products",
+            "category": 9
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 39,
+        "fields": {
+            "name": "Gluten-free, vegan, and other specialty diet items",
+            "category": 9
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 40,
+        "fields": {
+            "name": "Cleaning products",
+            "category": 10
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 41,
+        "fields": {
+            "name": "Paper goods (toilet paper, paper towels)",
+            "category": 10
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 42,
+        "fields": {
+            "name": "Laundry supplies",
+            "category": 10
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 43,
+        "fields": {
+            "name": "Dishwashing supplies",
+            "category": 10
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 44,
+        "fields": {
+            "name": "Shampoo and conditioner",
+            "category": 11
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 45,
+        "fields": {
+            "name": "Soap and body wash",
+            "category": 11
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 46,
+        "fields": {
+            "name": "Toothpaste and oral care",
+            "category": 11
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 47,
+        "fields": {
+            "name": "Deodorants",
+            "category": 11
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 48,
+        "fields": {
+            "name": "Skincare products",
+            "category": 11
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 49,
+        "fields": {
+            "name": "Baby food",
+            "category": 12
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 50,
+        "fields": {
+            "name": "Diapers and wipes",
+            "category": 12
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 51,
+        "fields": {
+            "name": "Baby care products",
+            "category": 12
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 52,
+        "fields": {
+            "name": "Pet food",
+            "category": 13
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 53,
+        "fields": {
+            "name": "Pet toys",
+            "category": 13
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 54,
+        "fields": {
+            "name": "Pet grooming supplies",
+            "category": 13
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 55,
+        "fields": {
+            "name": "Asian cuisine",
+            "category": 14
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 56,
+        "fields": {
+            "name": "Hispanic cuisine",
+            "category": 14
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 57,
+        "fields": {
+            "name": "European cuisine",
+            "category": 14
+        }
+    },
+    {
+        "model": "backend.SubCategory",
+        "pk": 58,
+        "fields": {
+            "name": "Middle Eastern cuisine",
+            "category": 14
+        }
+    }
+]

@@ -1,0 +1,18 @@
+[
+    {
+        "model": "backend.Company",
+        "pk": 1,
+        "fields": {
+            "name": "Sri Abirami Stores",
+            "user": 1
+        }
+    },
+    {
+        "model": "backend.Company",
+        "pk": 2,
+        "fields": {
+            "name": "CKR Stores",
+            "user": 1
+        }
+    }
+]

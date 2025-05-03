@@ -1,0 +1,283 @@
+from django.template.backends import django
+
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
+from django.shortcuts import render, get_object_or_404, redirect
+
+from backend.models import Product, Category, Cart, OrderItem, Order
+from config import settings
+
+
+# Create your views here.
+def home(request):
+    # Get the current logged-in user
+    user = request.user
+
+    # Prepare the initial data dictionary
+    data = {}
+
+    # If the user is authenticated, retrieve cart information
+    if user.is_authenticated:
+        # Print user email for debugging (remove in production)
+        print(user.email)
+
+        # Filter cart items for the current user
+        cart_items = Cart.objects.filter(custom_user=user)
+
+        # Calculate the grand total for the cart
+        grand_total = Cart.grand_total(customer_id=user.id)
+
+        # Add cart data to the context
+        data['cart_items'] = cart_items  # Pass the filtered cart items to the template
+        data['grand_total'] = grand_total
+        data['cart_count'] = cart_items.count()
+    else:
+        # If the user is not authenticated, set default cart values
+        data['cart_items'] = []
+        data['grand_total'] = 0
+        data['cart_count'] = 0
+
+    # Retrieve all categories for use in the view
+    categories = Category.objects.all()
+    data['categories'] = categories
+
+    # Check if 'category' query parameter is present
+    category_present = 'category' in request.GET
+    data['category_present'] = category_present
+
+    # Apply category filter if category is present and is not 'All'
+    category_id = request.GET.get('category')
+    if category_id and category_id != 'All':
+        # Filter products based on the selected category
+        products = Product.objects.filter(category__id=category_id)
+
+        # Get the category object and set page title and product count
+        category = get_object_or_404(Category, pk=category_id)
+        data['page_title'] = category.name
+        data['product_count'] = category.products.count()
+
+        # Pass filtered products to the template
+        data['products'] = products
+        return render(request, 'frontend/product/list/type1.html', data)
+    else:
+        # If no specific category is selected, show all products
+        products = Product.objects.all()
+        data['products'] = products
+        data['page_title'] = "All Products"
+        data['product_count'] = products.count()
+
+    # Render the template with the combined data
+    return render(request, 'frontend/home.html', data)
+
+def show(request, product_id):
+    # Retrieve the specific product using the provided product_id
+    product = get_object_or_404(Product, pk=product_id)
+
+    # Prepare the data to be passed to the template
+    data = {
+        'product': product,
+        'page_title': product.name,  # You can set the page title as per your requirement
+        'category': product.category,  # Optional: if you want to display the category
+    }
+
+    # Render the product detail template
+    return render(request, 'frontend/product/detail/type1.html', data)
+
+def auth_login(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        # Authenticate the user
+        user = authenticate(request, username=email, password=password)
+
+        if user is not None:
+            # Login the user
+            login(request, user)
+            return redirect('home')  # Redirect to a success page
+        else:
+            messages.error(request, 'Invalid email or password')
+    return render(request, 'frontend/auth/login.html')
+
+
+def auth_logout(request):
+    logout(request)  # Log out the user
+    return redirect('home')  # Redirect to the login page or home page
+
+def register(request):
+    return render(request, 'frontend/auth/register.html')
+
+def forget_password(request):
+    return render(request, 'frontend/auth/forget_password.html')
+
+def account(request):
+    return render(request, 'frontend/auth/account.html')
+
+def about(request):
+    return render(request, 'frontend/auth/about.html')
+
+@login_required  # Ensures the user is authenticated
+def cart(request):
+    # Get the current logged-in user
+    user = request.user
+
+    # Print user email for debugging (only if the user is authenticated)
+    if user.is_authenticated:
+        print(user.email)
+
+        # Filter cart items for the current user
+        cart_items = Cart.objects.filter(custom_user=user)
+
+        # Calculate the grand total for the cart
+        grand_total = Cart.grand_total(customer_id=user.id)
+
+        # Prepare the data to be passed to the template
+        data = {
+            'cart_items': cart_items,  # Pass the filtered cart items to the template
+            'grand_total': grand_total,
+            'page_title': 'Cart',  # You can set the page title as per your requirement
+            'cart_count': cart_items.count()
+        }
+    else:
+        # If the user is not authenticated, handle accordingly
+        data = {
+            'cart_items': [],  # No cart items for unauthenticated users
+            'page_title': 'Cart',  # Page title remains the same
+            'error_message': 'You need to log in to view your cart.'  # Optional error message
+        }
+
+    return render(request, 'frontend/cart/index.html', data)
+
+@login_required
+def add_to_cart(request, product_id):
+    # Get the product the user wants to add
+    product = get_object_or_404(Product, id=product_id)
+
+    # Check if this product already exists in the user's cart
+    cart_item, created = Cart.objects.get_or_create(
+        product=product,
+        custom_user=request.user,  # Use your user field name
+        defaults={'qty': 1}
+    )
+
+    if not created:
+        # Product already in cart, increase quantity
+        cart_item.qty += 1
+        cart_item.save()
+        messages.info(request, f'Increased quantity for {product.name}.')
+    else:
+        messages.success(request, f'Added {product.name} to your cart.')
+
+    return redirect('cart')  # Or redirect to product detail page
+
+@login_required
+def increase_quantity(request, id):
+    cart_item = get_object_or_404(Cart, id=id, custom_user=request.user)
+
+    if cart_item:
+        # Increase the quantity
+        cart_item.qty += 1
+        cart_item.save()
+        messages.success(request, f'Quantity increased for {cart_item.product.name} in your cart.')
+    else:
+        messages.error(request, 'Cart item not found.')
+
+    return redirect('cart')  # Adjust as necessary
+
+@login_required
+def decrease_quantity(request, id):
+    cart_item = get_object_or_404(Cart, id=id, custom_user=request.user)
+
+    # Decrease the quantity, ensuring it doesn't go below 1
+    if cart_item.qty > 1:
+        cart_item.qty -= 1
+        cart_item.save()
+        messages.success(request, f'Quantity decreased for {cart_item.product.name} in your cart.')
+    else:
+        messages.warning(request, f'Cannot decrease quantity for {cart_item.product.name} below 1.')
+
+    return redirect('cart')  # Adjust as necessary
+
+@login_required
+def remove_from_cart(request, id):
+    cart_item = get_object_or_404(Cart, id=id, custom_user=request.user)
+
+    # Remove the cart item
+    product_name = cart_item.product.name
+    cart_item.delete()
+
+    messages.success(request, f'{product_name} removed from your cart.')
+    return redirect('cart')  # Adjust as necessary
+
+
+@login_required
+def clear_cart(request):
+    cart_items = Cart.objects.filter(custom_user=request.user)
+
+    if cart_items.exists():
+        cart_items.delete()
+        messages.success(request, 'Cart cleared successfully.')
+    else:
+        messages.error(request, 'No items found in the cart.')
+
+    return redirect('cart')  # Adjust as necessary
+
+
+@login_required
+def place_order(request):
+    user = request.user
+    cart_items = Cart.objects.filter(custom_user=user)
+
+    if not cart_items.exists():
+        messages.warning(request, "Your cart is empty.")
+        return redirect('cart')
+
+    # Calculate total amount
+    total_amount = sum(item.product.price * item.qty for item in cart_items)
+
+    # Create the order
+    order = Order.objects.create(
+        customer=user,
+        total_amount=total_amount,
+        payment_method=request.POST.get('payment_method', 'CASH'),  # Default to 'CASH' if not provided
+        order_status='PENDING'
+    )
+
+    # Create order items
+    for item in cart_items:
+        OrderItem.objects.create(
+            order=order,
+            product=item.product,
+            qty=item.qty,
+            unit_price=item.product.price,
+            amount=item.product.price * item.qty,
+            discount=0  # Adjust if you have discount logic
+        )
+
+    # Clear the cart
+    cart_items.delete()
+
+    # Send confirmation email
+    subject = f"Order Confirmation - {order.order_number}"
+    message = (
+        f"Dear {user.first_name},\n\n"
+        f"Thank you for your order #{order.order_number}.\n"
+        f"Total Amount: ₹{order.total_amount}\n\n"
+        f"We will notify you once your order is shipped.\n\n"
+        f"Best regards,\n"
+        f"Your Company Name"
+    )
+    response = send_mail(
+        subject=subject,
+        message=message,
+        from_email=settings.DEFAULT_FROM_EMAIL,
+        recipient_list=[user.email],
+        fail_silently=True,
+    )
+
+    print("Email send response:", response)
+
+    messages.success(request, f"Order #{order.order_number} placed successfully!")
+    return redirect('home')  # Redirect to a success page or order summary

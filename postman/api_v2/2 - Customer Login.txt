@@ -1,0 +1,17 @@
+Customer Register
+
+POST -> http://192.168.1.211:8000/api_v2/login
+
+
+Body -> raw -> JSON (application/json)
+
+Enter the JSON data in the request body
+
+{
+    "email":"prabhu@gmail.com",
+    "password": "prabhu"
+}
+
+Response
+
+"26e1b91636aef9262ea881af822f6b3a4f36f219"

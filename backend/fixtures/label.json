@@ -1,0 +1,26 @@
+[
+    {
+        "model": "backend.Label",
+        "pk": 1,
+        "fields": {
+            "name": "Hot",
+            "color": "#e74c3c"
+        }
+    },
+    {
+        "model": "backend.Label",
+        "pk": 2,
+        "fields": {
+            "name": "New",
+            "color": "#2ecc71"
+        }
+    },
+    {
+        "model": "backend.Label",
+        "pk": 3,
+        "fields": {
+            "name": "Sale",
+            "color": "#8e44ad"
+        }
+    }
+]
